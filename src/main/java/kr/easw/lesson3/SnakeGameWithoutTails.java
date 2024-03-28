@@ -135,7 +135,7 @@ public class SnakeGameWithoutTails {
                         System.out.print("◼ ");
                         break;
                     case 2:
-                        System.out.print("* d");
+                        System.out.print("* ");
                         break;
                 }
             }
