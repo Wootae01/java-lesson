@@ -52,59 +52,68 @@ public class SnakeGameWithoutTails {
         if (keyword.equals("0")) {
             return false;
         }
-        int row = location.x;
-        int col = location.y;
-        board[row][col] = 0;
+
+        int row = location.getX();
+        int col = location.getY();
+        int nextRow = row, nextCol = col;
+
+        board[location.getX()][location.getY()] = 0;
 
         if (keyword.equals("r")) {
-            col++;
-            if(col >= BOARD_SIZE){
-                col--;
+            if(col + 1 >= BOARD_SIZE){
+                return true;
             }
-            location = new SnakeLocation(row, col);
-            if (board[row][col] == 2) {
+            location = location.adjust(0, 1);
+
+            nextRow = location.getX(); nextCol = location.getY();
+            if (board[nextRow][nextCol] == 2) {
                 score++;
-                board[row][col] = 0;
+                board[nextRow][nextCol] = 0;
                 return true;
             }
         }
         else if (keyword.equals("l")) {
-            col--;
-            if(col < 0){
-                col++;
+            if(col - 1 < 0){
+                return true;
             }
-            location = new SnakeLocation(row, col);
-            if (board[row][col] == 2) {
+            location = location.adjust(0, -1);
+
+            nextRow = location.getX(); nextCol = location.getY();
+            if (board[nextRow][nextCol] == 2) {
                 score++;
-                board[row][col] = 0;
+                board[nextRow][nextCol] = 0;
                 return true;
             }
         }
+
         else if (keyword.equals("u")) {
-            row--;
-            if(row < 0){
-                row++;
+            if(row - 1 < 0){
+                return true;
             }
-            location = new SnakeLocation(row, col);
-            if (board[row][col] == 2) {
+
+            location = location.adjust(-1, 0);
+
+            nextRow = location.getX(); nextCol = location.getY();
+            if (board[nextRow][nextCol] == 2) {
                 score++;
-                board[row][col] = 0;
+                board[nextRow][nextCol] = 0;
                 return true;
             }
         }
         else if (keyword.equals("d")) {
-            row++;
-            if(row >= BOARD_SIZE){
-                row--;
+            if(row + 1 >= BOARD_SIZE){
+                return true;
             }
-            location = new SnakeLocation(row, col);
-            if (board[row][col] == 2) {
+            location = location.adjust(1, 0);
+
+            nextRow = location.getX(); nextCol = location.getY();
+            if (board[nextRow][nextCol] == 2) {
                 score++;
-                board[row][col] = 0;
+                board[nextRow][nextCol] = 0;
                 return true;
             }
         }
-        board[row][col] = 1;
+        board[nextRow][nextCol] = 1;
         return true;
     }
 
@@ -123,10 +132,10 @@ public class SnakeGameWithoutTails {
                         System.out.print("・ ");
                         break;
                     case 1:
-                        System.out.print("◼");
+                        System.out.print("◼ ");
                         break;
                     case 2:
-                        System.out.print("* ");
+                        System.out.print("* d");
                         break;
                 }
             }
