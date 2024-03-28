@@ -1,39 +1,52 @@
 package kr.easw.lesson3;
 
 import java.util.Arrays;
+import java.util.Random;
 
-public class SimpleArray {
-    private static int[] arrays = new int[10];
+public class RollTheDice {
+    private static int[] frequency = new int[6];
 
-    private static int[] answer = new int[]{0, 1, 4, 16, 25, 49, 64, 81, 121, 144};
+    private static Random RANDOM = new Random();
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            fillArray(i);
-        }
-        boolean isMatched = true;
-        for (int i = 0; i < 10; i++) {
-            if (arrays[i] != answer[i]) {
-                System.out.printf("값이 일차하지 않습니다. (인덱스 %d)\n", i);
-                isMatched = false;
+        for (int i = 0; i < 600; i++) {
+            if (RANDOM.nextDouble() < 0.1) {
+                fillArray(RANDOM.nextDouble() * 720);
+            } else {
+                fillArray(RANDOM.nextDouble() * 360);
             }
-        }
-        if (isMatched) {
-            System.out.println("정답입니다.");
-        } else {
-            System.out.println("오답입니다.");
         }
     }
 
     /**
      * 해당 메서드는 다음과 같은 역할을 가져야 합니다 :
-     * 주어진 인덱스를 이용하여 array 변수에 다음 수식을 적용하여 추가해야 합니다.
+     * 주어진 값을 60으로 나눈 후, 나온 값의 수만큼 해당 인덱스에 존재하는 배열 값을 1 증가시켜야 합니다.
+     * 또한, 어떠한 경우에서도 주어진 기능을 구현했을 떄, 오류가 발생해서는 안됩니다.
      * <p>
-     * (index x 7 / 5) ^ 2
-     * <p>
-     * * ^2는 제곱의 의미로 사용되었습니다.
+     * 입력값은 일반적으로는 360을 넘지 않으나, 낮은 확률로 360을 넘습니다.
+     * 이러한 경우, extendArray 메서드를 구현하여 이를 이용해 배열을 재선언해야 합니다.
+     *
+     * 또한, 입력값이 double임으로 60으로 나눈 이후 int로 캐스팅이 필요합니다.
      */
-    private static void fillArray(int index) {
-        arrays[index] = (index* 7 /5) * (index* 7 /5);
+    private static void fillArray(double result) {
+        int index = (int)result / 60;
+        if(index >= frequency.length){
+            frequency = extendArray(index);
+            frequency[index] += 1;
+        } else{
+            frequency[index] += 1;
+        }
+    }
+
+    /**
+     * 해당 메서드는 다음과 같은 역할을 가져야 합니다 :
+     * 주어진 값의 크기만큼 배열을 생성한 후, 기존 배열에 있던 데이터를 복사해 반환해야 합니다.
+     */
+    private static int[] extendArray(int next) {
+        int[] tmp = new int[next+1];
+        for (int i = 0; i < frequency.length; i++) {
+            tmp[i] = frequency[i];
+        }
+        return tmp;
     }
 }
