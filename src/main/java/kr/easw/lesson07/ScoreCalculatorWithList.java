@@ -47,15 +47,14 @@ public class ScoreCalculatorWithList {
 
         @Override
         public void addScore(String subject, int score) {
-            if (subject == null) {
-                throw new RuntimeException("이곳에 코드를 작성하세요.");
-            }
-
             list.add(new Score(subject, score));
         }
 
         @Override
         public double getAverage() {
+            if (list.isEmpty()) {
+                throw new RuntimeException("입력된 점수가 없습니다.");
+            }
             double sum = 0;
             int size = list.size();
             for (int i = 0; i < size; i++) {
@@ -68,6 +67,10 @@ public class ScoreCalculatorWithList {
 
         @Override
         public int getSubjectCount() {
+            if (list.isEmpty()) {
+                throw new RuntimeException("입력된 점수가 없습니다.");
+            }
+
             int count = 0;
             String str = "";
 
@@ -77,6 +80,7 @@ public class ScoreCalculatorWithList {
                     count++;
                 }
             }
+
             return count;
         }
     }
