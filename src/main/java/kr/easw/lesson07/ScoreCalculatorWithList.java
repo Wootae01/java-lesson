@@ -67,22 +67,7 @@ public class ScoreCalculatorWithList {
 
         @Override
         public int getSubjectCount() {
-            if (list.isEmpty()) {
-                throw new RuntimeException("입력된 점수가 없습니다.");
-            }
-
-            ArrayList<String> sub = new ArrayList<>();
-            int count = 0;
-
-            for (Score current : list) {
-                if (!sub.contains(current.subject)) {
-                    count++;
-                    sub.add(current.subject);
-                }
-            }
-
-            return count;
-        }
+            return list.size();
     }
 
     static class Score {
