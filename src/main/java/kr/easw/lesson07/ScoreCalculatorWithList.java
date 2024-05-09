@@ -71,13 +71,13 @@ public class ScoreCalculatorWithList {
                 throw new RuntimeException("입력된 점수가 없습니다.");
             }
 
+            ArrayList<String> sub = new ArrayList<>();
             int count = 0;
-            String str = "";
 
             for (Score current : list) {
-                if (!str.contains(current.subject)) {
-                    str = str + current.getSubject();
+                if (!sub.contains(current.subject)) {
                     count++;
+                    sub.add(current.subject);
                 }
             }
 
